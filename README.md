@@ -375,3 +375,12 @@ Projeto desenvolvido com muito carinho e dedicação técnica como Trabalho de C
 <div align="center">
   <sub>© 2026 ROAR. Inclusão que dá voz a diferentes formas de aprender.</sub>
 </div>
+
+
+3. Como você atualizará o site daqui para frente?
+Quando o JG fizer alterações no projeto, você precisará executar apenas:
+git pull origin main
+
+
+Depois:
+git push deploy origin/main:main
