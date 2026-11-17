@@ -315,7 +315,9 @@ function renderDinoGrid() {
             const canAfford = currentXp >= dino.price;
             if (canAfford) {
                 btn.className = "dino-btn dino-btn--buy";
-                btn.innerHTML = `<i class="fi fi-br-shopping-cart"></i> Adotar (${dino.price} XP)`;
+                btn.innerHTML = dino.price === 0
+                    ? `<i class="fi fi-br-gift"></i> Adotar grátis`
+                    : `<i class="fi fi-br-shopping-cart"></i> Adotar (${dino.price} XP)`;
                 btn.addEventListener("click", () => openPurchaseModal(dino));
             } else {
                 const diff = dino.price - currentXp;
@@ -366,7 +368,9 @@ function openPurchaseModal(dino) {
     elements.modalDinoName.textContent = dino.name;
 
     elements.modalXpCurrent.textContent = `${currentXp.toLocaleString("pt-BR")} XP`;
-    elements.modalXpCost.textContent = `- ${dino.price.toLocaleString("pt-BR")} XP`;
+    elements.modalXpCost.textContent = dino.price === 0
+        ? "Grátis"
+        : `- ${dino.price.toLocaleString("pt-BR")} XP`;
     elements.modalXpRemaining.textContent = `${remaining.toLocaleString("pt-BR")} XP`;
 
     if (elements.modalBackdrop) {

@@ -17,7 +17,7 @@ const ICONS = Object.freeze({
 });
 
 function progressText(module) {
-    if (module.status === "completed") return "Concluído — revisar";
+    if (module.status === "completed") return "Concluído — rever palavras";
     if (module.status === "in_progress") return `${module.progress}% concluído — continuar`;
     if (module.status === "available") return "Começar módulo";
     return "Em preparação";
@@ -53,6 +53,15 @@ function createModuleCard(module, index) {
 
     card.append(icon, title, progress, bar);
     card.addEventListener("click", () => {
+        if (module.status === "completed" && !savedStage) {
+            const summaryUrl = `atividade.html?modulo=${encodeURIComponent(module.id)}&resumo=1`;
+            if (window.roarNavigate) {
+                window.roarNavigate(summaryUrl);
+            } else {
+                window.location.href = summaryUrl;
+            }
+            return;
+        }
         const etapa = savedStage ?? module.nextStage ?? 1;
         const url = `atividade.html?modulo=${encodeURIComponent(module.id)}&etapa=${etapa}${savedStage ? "&retomar=1" : ""}`;
         if (window.roarNavigate) {

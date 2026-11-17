@@ -1,4 +1,4 @@
-import { atividadeService } from "../../services/atividade-service.js";
+import { atividadeService } from "../../services/atividade-service.js?v=2";
 import { audioService } from "../../services/audio-service.js";
 import { soundFx } from "../../services/roar-sound-fx.js?v=2";
 import { createAssociateActivity, } from "./associar.js?v=4";
@@ -148,6 +148,7 @@ export async function createActivityController({
     elements,
     moduleContext = null,
     onStageChange = null,
+    onModuleComplete = null,
 }) {
     const context = moduleContext
         ? atividadeService.getActivityContext(moduleContext, stage)
@@ -416,6 +417,8 @@ export async function createActivityController({
                 typeof onStageChange === "function"
             ) {
                 await onStageChange(nextActivity.order);
+            } else if (!nextActivity && typeof onModuleComplete === "function") {
+                await onModuleComplete({ module, student, earnedXp });
             } else {
                 navigateTo(
                     nextActivity
