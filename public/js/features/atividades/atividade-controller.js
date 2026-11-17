@@ -365,6 +365,14 @@ export async function createActivityController({
                 statistics.wrong += 1;
                 recordWord(item, 'erros');
                 persistDraft();
+                queueMicrotask(() => {
+                    if (disposed || activeEpoch !== epoch) return;
+
+                    elements.setMessage(
+                        elements.message.textContent,
+                        "error",
+                    );
+                });
                 soundFx.playTryAgain();
             },
         });

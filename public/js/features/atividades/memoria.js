@@ -490,7 +490,7 @@ export function createMemoryActivity(
     function render() {
         clearTimers();
         destroyed = false;
-        previewing = savedState ? !savedState.previewCompleted : [1, 2].includes(Number(student.supportLevel));
+        previewing = savedState ? !savedState.previewCompleted : [1, 2, 3].includes(Number(student.supportLevel));
         window.addEventListener("pagehide", destroy);
         memoryItems = savedState ? savedState.items.map(id => knownItems.get(id)) :
             createMemoryItems(
