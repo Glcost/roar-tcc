@@ -2,6 +2,7 @@ import { showToast } from "../../components/toast.js";
 import { alunosApi } from "../../api/alunos-api.js";
 import { sessionService } from "../../services/session-service.js";
 import { storage } from "../../utils/storage.js";
+import { soundFx } from "../../services/roar-sound-fx.js?v=2";
 import { mountPrivacyRequests } from "../../components/privacy-requests.js";
 
 const DEFAULTS = Object.freeze({
@@ -142,9 +143,22 @@ function readForm() {
     });
 }
 
-function preview() {
+let lastVolumePreviewAt = 0;
+
+function preview(event) {
     preferences = readForm();
+    /* Aplica na hora: o volume e os sons passam a valer em todo o app
+       sem precisar clicar em Salvar. */
+    storage.setPreferences(preferences);
     apply(preferences);
+
+    if (event?.target === elements.volume && elements.sounds.checked) {
+        const now = Date.now();
+        if (now - lastVolumePreviewAt > 160) {
+            lastVolumePreviewAt = now;
+            soundFx.playTonePreview(preferences.volume);
+        }
+    }
 }
 
 function save() {

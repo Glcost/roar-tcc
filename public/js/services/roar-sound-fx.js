@@ -6,6 +6,10 @@
 
 import { storage } from "../utils/storage.js";
 
+/* Ganho máximo com o volume em 100%. Antes era 0.22 (sons muito baixos
+   mesmo no máximo); agora a escala toda do controle é audível. */
+const MAX_MASTER_GAIN = 0.55;
+
 class RoarSoundFx {
     constructor() {
         this._ctx = null;
@@ -39,15 +43,15 @@ class RoarSoundFx {
             const volumePct = Number.isFinite(rawVolume) ? Math.min(100, Math.max(0, rawVolume)) : 80;
             const reducedStimuli = Boolean(prefs.reducedStimuli);
 
-            // Volume base suave (máximo 0.22 do ganho para evitar sons estridentes)
-            let masterGain = (volumePct / 100) * 0.22;
+            // A escala do controle (0–100) vale de silêncio ao volume máximo.
+            let masterGain = (volumePct / 100) * MAX_MASTER_GAIN;
             if (reducedStimuli) {
                 masterGain *= 0.65;
             }
 
             return { enabled, masterGain };
         } catch {
-            return { enabled: true, masterGain: 0.18 };
+            return { enabled: true, masterGain: MAX_MASTER_GAIN * 0.8 };
         }
     }
 
@@ -243,7 +247,7 @@ class RoarSoundFx {
         osc.type = "sine";
         osc.frequency.setValueAtTime(659.25, t); // E5 suave
 
-        const targetGain = vol * 0.22;
+        const targetGain = vol * MAX_MASTER_GAIN;
         gain.gain.setValueAtTime(0, t);
         gain.gain.linearRampToValueAtTime(targetGain * 0.6, t + 0.01);
         gain.gain.exponentialRampToValueAtTime(0.0001, t + 0.09);

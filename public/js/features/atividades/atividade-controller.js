@@ -1,6 +1,6 @@
 import { atividadeService } from "../../services/atividade-service.js";
 import { audioService } from "../../services/audio-service.js";
-import { soundFx } from "../../services/roar-sound-fx.js";
+import { soundFx } from "../../services/roar-sound-fx.js?v=2";
 import { createAssociateActivity, } from "./associar.js?v=4";
 import { createRecognizeActivity, } from "./reconhecer.js?v=4";
 import { createValidateActivity, } from "./validar.js?v=4";
