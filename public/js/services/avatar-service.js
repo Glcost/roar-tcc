@@ -2,6 +2,8 @@ import { sessionService } from "./session-service.js";
 
 export const DINO_CATALOG = Object.freeze([
     { id: 1, name: "Dino Padrão", title: "O Mascote Lendário", price: 0, rarity: "padrao", rarityLabel: "Inicial", badgeColor: "#10b981", description: "O simpático dinossauro verde clássico da ROAR.", fileName: "dinooriginal.png", isOriginal: true, category: "classico" },
+    { id: 14, name: "Lexa", title: "Amiga da Turma", price: 0, rarity: "comum", rarityLabel: "Comum", badgeColor: "#db2777", description: "A dino cor-de-rosa de laço florido, sempre animada para aprender junto.", fileName: "lexa.png", isOriginal: false, category: "especial" },
+    { id: 15, name: "Pietro", title: "Explorador das Placas", price: 50, rarity: "comum", rarityLabel: "Comum", badgeColor: "#ea580c", description: "Estegossauro laranja de placas coloridas, curioso por novas palavras.", fileName: "pietro.png", isOriginal: false, category: "aventura" },
     { id: 2, name: "Dino Basquete", title: "Cestinha das Quadras", price: 300, rarity: "comum", rarityLabel: "Comum", badgeColor: "#3b82f6", description: "Enterradas certeiras e muita agilidade!", fileName: "dino_basquete.png", isOriginal: false, category: "esportes" },
     { id: 3, name: "Dino Explorador", title: "Aventureiro da Selva", price: 600, rarity: "comum", rarityLabel: "Comum", badgeColor: "#059669", description: "Equipado para descobrir novas palavras na floresta.", fileName: "dino_explorador.png", isOriginal: false, category: "aventura" },
     { id: 4, name: "Dino Jogador (Brasil)", title: "Artilheiro das Palavras", price: 600, rarity: "comum", rarityLabel: "Comum", badgeColor: "#3b82f6", description: "Camisa 10 pronto para marcar golaços!", fileName: "dino_jogador.png", isOriginal: false, category: "esportes" },
