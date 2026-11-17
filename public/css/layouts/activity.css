@@ -3862,12 +3862,15 @@
     font-weight: 800;
     line-height: 1;
     vertical-align: middle;
+    
 }
 
 .lex-feedback {
     --lex-feedback-background: #dff1fc;
     background: var(--lex-feedback-background);
 }
+
+
 
 
 .lex-feedback.is-error-flash {

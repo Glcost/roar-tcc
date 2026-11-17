@@ -2,6 +2,7 @@ import { showToast } from "../../components/toast.js";
 import { perfilAlunoService } from "../../services/perfil-aluno-service.js";
 import { sessionService } from "../../services/session-service.js";
 import { avatarService } from "../../services/avatar-service.js";
+import { moduloService } from "../../services/modulo-service.js";
 
 const elements = {
     navbarAvatar:
@@ -25,19 +26,11 @@ const elements = {
     studentXp:
         document.getElementById("studentXp"),
 
-    studentId:
-        document.getElementById("studentId"),
+    completedModulesSummary:
+        document.getElementById("completedModulesSummary"),
 
-    studentEmailDetail:
-        document.getElementById("studentEmailDetail"),
-
-    studentSchoolYearDetail:
-        document.getElementById(
-            "studentSchoolYearDetail",
-        ),
-
-    studentLevel:
-        document.getElementById("studentLevel"),
+    nextModuleSummary:
+        document.getElementById("nextModuleSummary"),
 
     studentLearningModeDetail:
         document.getElementById(
@@ -120,18 +113,6 @@ function renderProfile(profile) {
     elements.studentXp.textContent =
         formatNumber(currentXp);
 
-    elements.studentId.textContent =
-        String(profile.id);
-
-    elements.studentEmailDetail.textContent =
-        profile.email;
-
-    elements.studentSchoolYearDetail.textContent =
-        profile.schoolYear;
-
-    elements.studentLevel.textContent =
-        `Nível ${profile.learningMode.number}`;
-
     elements.studentLearningModeDetail.textContent =
         profile.learningMode.name;
 
@@ -146,8 +127,50 @@ function renderProfile(profile) {
     }
 
     // ATUALIZA A IMAGEM DO MASCOTE NA TELA DE PERFIL
-   if (avatarService) {
+    if (avatarService) {
         avatarService.applyToPage();
+    }
+}
+
+async function renderJourney() {
+    try {
+        const modules = await moduloService.listJourney();
+        const availableModules = modules.filter(
+            module => module.active && module.status !== "preparation",
+        );
+
+        const completedModules = availableModules.filter(
+            module => module.status === "completed",
+        );
+
+        const currentModule =
+            availableModules.find(module => module.status === "in_progress") ??
+            availableModules.find(module => module.status === "available");
+
+        elements.completedModulesSummary.textContent =
+            `${completedModules.length} de ${availableModules.length} módulos`;
+
+        if (currentModule?.status === "in_progress") {
+            elements.nextModuleSummary.textContent =
+                `${currentModule.title} — ${currentModule.progress}% concluído`;
+        } else if (currentModule) {
+            elements.nextModuleSummary.textContent =
+                `${currentModule.title} — pronto para começar`;
+        } else if (completedModules.length > 0) {
+            elements.nextModuleSummary.textContent =
+                "Você pode revisar um módulo concluído";
+        } else {
+            elements.nextModuleSummary.textContent =
+                "Nenhum módulo disponível no momento";
+        }
+    } catch (error) {
+        console.error("Erro ao carregar a jornada do aluno:", error);
+
+        elements.completedModulesSummary.textContent =
+            "Progresso indisponível";
+
+        elements.nextModuleSummary.textContent =
+            "Acesse meus módulos para continuar";
     }
 }
 
@@ -234,6 +257,7 @@ async function initialize() {
     try {
         validateElements();
         await loadProfile();
+        await renderJourney();
     } catch (error) {
         console.error(
             "Erro ao inicializar perfil:",

@@ -35,7 +35,7 @@
 }
 
 :root[data-theme="dark"] .activity-stage img.prompt-image,
-:root[data-theme="dark"] .activity-content > .prompt-image,
+:root[data-theme="dark"] .activity-content>.prompt-image,
 :root[data-theme="dark"] .recognize-card img,
 :root[data-theme="dark"] .validation-image-button img {
     border-color: var(--roar-border);
@@ -43,8 +43,8 @@
 
 /* Rodapé ---------------------------------------------------- */
 :root[data-theme="dark"] .lex-feedback {
-    background: #1b2b3f;
-    color: var(--roar-ink);
+    --lex-feedback-background: #1b2b3f;
+    background: var(--lex-feedback-background);
 }
 
 :root[data-theme="dark"] .activity-progress {
