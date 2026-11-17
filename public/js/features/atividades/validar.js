@@ -192,6 +192,7 @@ export function createValidateActivity(
 
         elements.setMessage(
             "Esta não é a palavra da imagem. Tente novamente.",
+            "error",
         );
 
         onWrong(item);

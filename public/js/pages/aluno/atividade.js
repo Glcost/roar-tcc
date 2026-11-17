@@ -75,9 +75,17 @@ const elements = {
             String(value ?? "");
     },
 
-    setMessage(value) {
-        this.message.textContent =
-            String(value ?? "");
+    setMessage(value, state = "") {
+        this.message.textContent = String(value ?? "");
+        this.message.dataset.feedbackState = state;
+
+        const panel = this.message.closest(".lex-feedback");
+        panel?.classList.remove("is-error-flash");
+
+        if (state === "error" && panel) {
+            void panel.offsetWidth;
+            panel.classList.add("is-error-flash");
+        }
     },
 
     setProgress(value, max) {
