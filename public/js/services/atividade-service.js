@@ -521,6 +521,16 @@ function createModule(
         payload.modulo.id,
         "modulo.id",
     );
+    const firstStage =
+        normalizedActivities[0]?.order ?? 1;
+    const requestedNextStage = Number(
+        payload.progresso?.proxima_etapa,
+    );
+    const nextStage = normalizedActivities.some(
+        activity => activity.order === requestedNextStage,
+    )
+        ? requestedNextStage
+        : firstStage;
 
     return Object.freeze({
         id: moduleId,
@@ -545,8 +555,13 @@ function createModule(
         totalActivities:
             normalizedActivities.length,
 
-        firstStage:
-            normalizedActivities[0]?.order ?? 1,
+        firstStage,
+
+        /* The backend is authoritative for the next unlocked stage. */
+        nextStage,
+
+        isComplete:
+            payload.progresso?.concluido === true,
 
         lastStage:
             normalizedActivities[

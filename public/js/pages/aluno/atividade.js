@@ -1,6 +1,7 @@
 import { showToast } from "../../components/toast.js";
-import { createActivityController } from "../../features/atividades/atividade-controller.js?v=5";
-import { atividadeService } from "../../services/atividade-service.js";
+import { createActivityController } from "../../features/atividades/atividade-controller.js?v=6";
+import { renderModuleCompletion } from "../../features/atividades/module-completion.js?v=1";
+import { atividadeService } from "../../services/atividade-service.js?v=2";
 import { activityProgressService, activityFingerprint } from "../../services/activity-progress-service.js?v=2";
 
 
@@ -230,7 +231,10 @@ function renderFailure(error, failedStage, requestId) {
     showToast(message, "error");
 }
 
-async function openStage(stageToOpen, { resumeRequested = false } = {}) {
+async function openStage(
+    stageToOpen,
+    { resumeRequested = false, enforceServerProgress = false } = {},
+) {
     if (pageClosed) return false;
     const requestId = ++stageRequestId;
     let targetStage = stageToOpen;
@@ -246,12 +250,36 @@ async function openStage(stageToOpen, { resumeRequested = false } = {}) {
             if (!requestIsCurrent(requestId)) return false;
             moduleContext = loaded;
         }
-        if (resumeRequested) {
+        const summaryRequested = parameters.get("resumo") === "1";
+        if (summaryRequested && moduleContext.module.isComplete) {
+            if (!requestIsCurrent(requestId)) return false;
+            renderModuleCompletion({ module: moduleContext.module, elements });
+            return true;
+        }
+        if (summaryRequested) {
+            parameters.delete("resumo");
+            targetStage = moduleContext.module.nextStage;
+        } else if (resumeRequested) {
             const draft = activityProgressService.read(moduleContext.student.id, moduleContext.module.id,
                 activityFingerprint(moduleContext));
             const requestedStageExists = moduleContext.module.activities.some(item => item.order === stageToOpen);
             targetStage = draft && moduleContext.module.activities.some(item => item.order === draft.stage)
                 ? draft.stage : (!requestedStageExists ? moduleContext.module.activities[0].order : stageToOpen);
+        }
+        const targetStageExists = moduleContext.module.activities.some(
+            item => item.order === targetStage,
+        );
+        if (!targetStageExists) {
+            targetStage = moduleContext.module.isComplete
+                ? moduleContext.module.firstStage
+                : moduleContext.module.nextStage;
+        }
+        if (
+            enforceServerProgress &&
+            !moduleContext.module.isComplete &&
+            targetStage > moduleContext.module.nextStage
+        ) {
+            targetStage = moduleContext.module.nextStage;
         }
         controller = await createActivityController({
             moduleId,
@@ -259,6 +287,11 @@ async function openStage(stageToOpen, { resumeRequested = false } = {}) {
             elements,
             moduleContext,
             onStageChange: nextStage => openStage(nextStage),
+            onModuleComplete: completion => {
+                if (!requestIsCurrent(requestId)) return;
+                activeController = null;
+                renderModuleCompletion({ module: completion.module, elements });
+            },
         });
         if (!requestIsCurrent(requestId)) {
             controller?.destroy();
@@ -269,6 +302,8 @@ async function openStage(stageToOpen, { resumeRequested = false } = {}) {
         const url = new URL(window.location.href);
         url.searchParams.set("modulo", String(moduleId));
         url.searchParams.set("etapa", String(targetStage));
+        url.searchParams.delete("resumo");
+        url.searchParams.delete("retomar");
         window.history.replaceState(window.history.state, "", url);
         controller.start();
         return true;
@@ -291,7 +326,10 @@ async function initialize() {
     });
     elements.repeatButton.addEventListener("click", () => activeController?.repeatInstruction());
     elements.nextButton.addEventListener("click", () => activeController?.next());
-    await openStage(stage, { resumeRequested: parameters.get("retomar") === "1" });
+    await openStage(stage, {
+        resumeRequested: parameters.get("retomar") === "1",
+        enforceServerProgress: true,
+    });
 }
 
 void initialize();
