@@ -12,6 +12,9 @@ const elements = {
     activeMascotName: document.getElementById("storeActiveMascotName"),
     heroPreviewImg: document.getElementById("storeHeroPreviewImg"),
     dinoGrid: document.getElementById("dinoGrid"),
+    search: document.getElementById("storeSearch"),
+    sort: document.getElementById("storeSort"),
+    resultCount: document.getElementById("storeResultCount"),
     tabs: document.querySelectorAll(".store-tab-btn"),
     btnTreinoXp: document.getElementById("btnTreinoXp"),
 
@@ -41,6 +44,15 @@ const elements = {
 
 let currentFilter = "all";
 let pendingPurchaseDino = null;
+
+const RARITY_ORDER = Object.freeze({
+    padrao: 0,
+    comum: 1,
+    raro: 2,
+    epico: 3,
+    lendario: 4,
+    mitico: 5,
+});
 
 /* ------------------------------------------------------------
    AUDIO FEEDBACK
@@ -202,22 +214,52 @@ function renderHeaderStats() {
    ------------------------------------------------------------ */
 function getFilteredCatalog() {
     const catalog = avatarService.getCatalog();
+    let filtered;
     switch (currentFilter) {
         case "comum":
-            return catalog.filter((d) => d.rarity === "padrao" || d.rarity === "comum");
+            filtered = catalog.filter((d) => d.rarity === "padrao" || d.rarity === "comum");
+            break;
         case "raro":
-            return catalog.filter((d) => d.rarity === "raro");
+            filtered = catalog.filter((d) => d.rarity === "raro");
+            break;
         case "epico":
-            return catalog.filter((d) => d.rarity === "epico");
+            filtered = catalog.filter((d) => d.rarity === "epico");
+            break;
         case "lendario":
-            return catalog.filter((d) => d.rarity === "lendario");
+            filtered = catalog.filter((d) => d.rarity === "lendario");
+            break;
         case "mitico":
-            return catalog.filter((d) => d.rarity === "mitico");
+            filtered = catalog.filter((d) => d.rarity === "mitico");
+            break;
         case "owned":
-            return catalog.filter((d) => d.isUnlocked);
+            filtered = catalog.filter((d) => d.isUnlocked);
+            break;
         default:
-            return catalog;
+            filtered = catalog;
     }
+
+    const query = elements.search?.value.trim().toLocaleLowerCase("pt-BR") || "";
+    if (query) {
+        filtered = filtered.filter((dino) =>
+            [dino.name, dino.title, dino.description, dino.rarityLabel]
+                .filter(Boolean)
+                .some((value) => String(value).toLocaleLowerCase("pt-BR").includes(query)),
+        );
+    }
+
+    const sortBy = elements.sort?.value || "price-asc";
+    const sorted = [...filtered];
+    if (sortBy === "price-desc") {
+        sorted.sort((a, b) => b.price - a.price || a.name.localeCompare(b.name, "pt-BR"));
+    } else if (sortBy === "name") {
+        sorted.sort((a, b) => a.name.localeCompare(b.name, "pt-BR"));
+    } else if (sortBy === "rarity") {
+        sorted.sort((a, b) => (RARITY_ORDER[a.rarity] ?? 99) - (RARITY_ORDER[b.rarity] ?? 99)
+            || a.price - b.price);
+    } else {
+        sorted.sort((a, b) => a.price - b.price || a.name.localeCompare(b.name, "pt-BR"));
+    }
+    return sorted;
 }
 
 /* ------------------------------------------------------------
@@ -230,13 +272,17 @@ function renderDinoGrid() {
     const currentXp = avatarService.getXp();
 
     elements.dinoGrid.innerHTML = "";
+    if (elements.resultCount) {
+        elements.resultCount.textContent = `${dinos.length} ${dinos.length === 1 ? "skin" : "skins"}`;
+    }
 
     if (dinos.length === 0) {
         elements.dinoGrid.innerHTML = `
-            <div class="card" style="grid-column: 1 / -1; text-align: center; padding: 48px 20px;">
-                <i class="fi fi-br-backpack" style="font-size: 3rem; color: var(--c-blue-light); margin-bottom: 12px; display: inline-block;"></i>
-                <h3 style="font-size: 1.2rem; color: var(--c-blue-dark); margin-bottom: 6px;">Nenhum dino encontrado nesta categoria</h3>
-                <p style="color: var(--c-text-soft);">Complete mais atividades para acumular XP e desbloquear novos mascotes!</p>
+            <div class="store-empty-state">
+                <i class="fi fi-br-backpack" aria-hidden="true"></i>
+                <h3>Nenhuma skin encontrada</h3>
+                <p>Altere a busca ou escolha outra categoria para ver mais opções.</p>
+                ${elements.search?.value ? '<button class="store-clear-search" type="button" data-action="clear-search">Limpar busca</button>' : ""}
             </div>
         `;
         return;
@@ -416,7 +462,7 @@ async function handleConfirmPurchase() {
     } finally {
         if (elements.modalConfirmBtn) {
             elements.modalConfirmBtn.disabled = false;
-            elements.modalConfirmBtn.innerHTML = '<i class="fi fi-br-shopping-cart"></i> Adotar e Equipar!';
+            elements.modalConfirmBtn.innerHTML = '<i class="fi fi-br-shopping-cart"></i> Comprar e equipar';
         }
     }
 }
@@ -449,6 +495,30 @@ function registerEvents() {
         });
     });
 
+    elements.search?.addEventListener("input", renderDinoGrid);
+    elements.sort?.addEventListener("change", renderDinoGrid);
+    const sortContainer = elements.sort?.closest(".store-sort");
+
+    sortContainer?.addEventListener("click", (event) => {
+        // O próprio select já abre a lista pelo comportamento normal do navegador.
+        if (event.target === elements.sort) return;
+
+        // Impede o label de enviar um segundo clique ao select.
+        event.preventDefault();
+
+        if (typeof elements.sort.showPicker === "function") {
+            elements.sort.showPicker();
+        } else {
+            elements.sort.focus();
+        }
+    });
+    elements.dinoGrid?.addEventListener("click", (event) => {
+        if (event.target.closest('[data-action="clear-search"]')) {
+            elements.search.value = "";
+            elements.search.focus();
+            renderDinoGrid();
+        }
+    });
     elements.btnTreinoXp?.addEventListener("click", handleTreinoXp);
 
     elements.modalCloseBtn?.addEventListener("click", closePurchaseModal);
