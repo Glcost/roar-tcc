@@ -19,7 +19,9 @@ const elements = {
     countAll: document.getElementById("countAll"),
     countComum: document.getElementById("countComum"),
     countRaro: document.getElementById("countRaro"),
+    countEpico: document.getElementById("countEpico"),
     countLendario: document.getElementById("countLendario"),
+    countMitico: document.getElementById("countMitico"),
     countOwned: document.getElementById("countOwned"),
 
     // Modal
@@ -181,13 +183,17 @@ function renderHeaderStats() {
     const catalog = avatarService.getCatalog();
     const comumCount = catalog.filter((d) => d.rarity === "padrao" || d.rarity === "comum").length;
     const raroCount = catalog.filter((d) => d.rarity === "raro").length;
-    const lendarioCount = catalog.filter((d) => d.rarity === "epico" || d.rarity === "lendario" || d.rarity === "mitico").length;
+    const epicoCount = catalog.filter((d) => d.rarity === "epico").length;
+    const lendarioCount = catalog.filter((d) => d.rarity === "lendario").length;
+    const miticoCount = catalog.filter((d) => d.rarity === "mitico").length;
     const ownedCount = catalog.filter((d) => d.isUnlocked).length;
 
     if (elements.countAll) elements.countAll.textContent = catalog.length;
     if (elements.countComum) elements.countComum.textContent = comumCount;
     if (elements.countRaro) elements.countRaro.textContent = raroCount;
+    if (elements.countEpico) elements.countEpico.textContent = epicoCount;
     if (elements.countLendario) elements.countLendario.textContent = lendarioCount;
+    if (elements.countMitico) elements.countMitico.textContent = miticoCount;
     if (elements.countOwned) elements.countOwned.textContent = ownedCount;
 }
 
@@ -201,8 +207,12 @@ function getFilteredCatalog() {
             return catalog.filter((d) => d.rarity === "padrao" || d.rarity === "comum");
         case "raro":
             return catalog.filter((d) => d.rarity === "raro");
+        case "epico":
+            return catalog.filter((d) => d.rarity === "epico");
         case "lendario":
-            return catalog.filter((d) => d.rarity === "epico" || d.rarity === "lendario" || d.rarity === "mitico");
+            return catalog.filter((d) => d.rarity === "lendario");
+        case "mitico":
+            return catalog.filter((d) => d.rarity === "mitico");
         case "owned":
             return catalog.filter((d) => d.isUnlocked);
         default:

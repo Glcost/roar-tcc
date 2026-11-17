@@ -2118,6 +2118,12 @@ textarea:focus-visible,
     background: rgba(255, 255, 255, 0.20) !important;
 }
 
+/* Ligado no modo escuro: a trilha recebe a cor de destaque. */
+[data-theme="dark"] .toggle input:checked + .toggle__slider {
+    background: var(--c-blue-mid) !important;
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+}
+
 [data-theme="dark"] .toggle__slider::before {
     background: #F8FAFC !important;
 }
