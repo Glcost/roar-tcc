@@ -4,6 +4,13 @@ export const DINO_CATALOG = Object.freeze([
     { id: 1, name: "Dino Padrão", title: "O Mascote Lendário", price: 0, rarity: "padrao", rarityLabel: "Inicial", badgeColor: "#10b981", description: "O simpático dinossauro verde clássico da ROAR.", fileName: "dinooriginal.png", isOriginal: true, category: "classico" },
     { id: 14, name: "Lexa", title: "Amiga da Turma", price: 0, rarity: "comum", rarityLabel: "Comum", badgeColor: "#db2777", description: "A dino cor-de-rosa de laço florido, sempre animada para aprender junto.", fileName: "lexa.png", isOriginal: false, category: "especial" },
     { id: 15, name: "Pietro", title: "Explorador das Placas", price: 50, rarity: "comum", rarityLabel: "Comum", badgeColor: "#ea580c", description: "Estegossauro laranja de placas coloridas, curioso por novas palavras.", fileName: "pietro.png", isOriginal: false, category: "aventura" },
+    { id: 16, name: "Lexa Bailarina", title: "Passos de Estrela", price: 1200, rarity: "raro", rarityLabel: "Raro", badgeColor: "#ec4899", description: "Lexa dança com sapatilhas e tutu em tons de rosa e lilás.", fileName: "lexa_bailarina.png", isOriginal: false, category: "especial" },
+    { id: 17, name: "Lexa Princesa", title: "Princesa do ROAR", price: 2400, rarity: "epico", rarityLabel: "Épico", badgeColor: "#9333ea", description: "Uma coroa brilhante para a princesa mais gentil da turma.", fileName: "lexa_princesa.png", isOriginal: false, category: "fantasia" },
+    { id: 18, name: "Lexa Fada", title: "Fada dos Sonhos", price: 3000, rarity: "lendario", rarityLabel: "Lendário", badgeColor: "#8b5cf6", description: "Asas cintilantes e uma varinha para espalhar curiosidade.", fileName: "lexa_fada.png", isOriginal: false, category: "fantasia" },
+    { id: 19, name: "Lexa Cientista", title: "Pequena Inventora", price: 1800, rarity: "raro", rarityLabel: "Raro", badgeColor: "#0d9488", description: "Lexa explora novas descobertas com seu jaleco e equipamentos.", fileName: "lexa_cientista.png", isOriginal: false, category: "especial" },
+    { id: 20, name: "Lexa Astronauta", title: "Exploradora Espacial", price: 3600, rarity: "lendario", rarityLabel: "Lendário", badgeColor: "#0284c7", description: "Pronta para levar a aprendizagem até as estrelas.", fileName: "lexa_astronauta.png", isOriginal: false, category: "fantasia" },
+    { id: 21, name: "Lexa Sereia", title: "Amiga do Oceano", price: 2400, rarity: "epico", rarityLabel: "Épico", badgeColor: "#0891b2", description: "Uma aventura marinha cheia de conchas, escamas e brilho.", fileName: "lexa_sereia.png", isOriginal: false, category: "fantasia" },
+    { id: 22, name: "Lexa Guardiã da Floresta", title: "Protetora da Natureza", price: 6000, rarity: "mitico", rarityLabel: "Mítico", badgeColor: "#65a30d", description: "A guardiã protege a floresta e seus pequenos habitantes.", fileName: "lexa_guardia_floresta.png", isOriginal: false, category: "aventura" },
     { id: 2, name: "Dino Basquete", title: "Cestinha das Quadras", price: 300, rarity: "comum", rarityLabel: "Comum", badgeColor: "#3b82f6", description: "Enterradas certeiras e muita agilidade!", fileName: "dino_basquete.png", isOriginal: false, category: "esportes" },
     { id: 3, name: "Dino Explorador", title: "Aventureiro da Selva", price: 600, rarity: "comum", rarityLabel: "Comum", badgeColor: "#059669", description: "Equipado para descobrir novas palavras na floresta.", fileName: "dino_explorador.png", isOriginal: false, category: "aventura" },
     { id: 4, name: "Dino Jogador (Brasil)", title: "Artilheiro das Palavras", price: 600, rarity: "comum", rarityLabel: "Comum", badgeColor: "#3b82f6", description: "Camisa 10 pronto para marcar golaços!", fileName: "dino_jogador.png", isOriginal: false, category: "esportes" },
@@ -311,7 +318,9 @@ export const avatarService = {
         const imgPath = this.resolveImagePath(dino);
 
         // Adicionámos o #profileAvatar à lista!
-        const navAvatars = doc.querySelectorAll(".navbar__avatar, #navAvatar, #studentAvatar, #navbarAvatar, #profileAvatar");
+        const navAvatars = doc.querySelectorAll(
+            ".navbar__avatar, #navAvatar, #studentAvatar, #navbarAvatar"
+        );
         navAvatars.forEach((avatar) => {
             let img = avatar.querySelector("img.navbar__avatar-img");
             if (!img) {

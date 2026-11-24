@@ -117,11 +117,13 @@
 
             <main class="page-body fade-in">
                 <section class="profile-hero" aria-labelledby="studentName">
-                    <div class="profile-hero__avatar-wrap" style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
+                    <div class="profile-hero__avatar-wrap"
+                        style="display: flex; flex-direction: column; align-items: center; gap: 8px;">
                         <div class="avatar avatar--xl u-pages-aluno-perfil-002" id="profileAvatar" aria-hidden="true">
                             A
                         </div>
-                        <a href="loja.html" class="btn btn--secondary btn--sm" style="font-size: 0.78rem; padding: 4px 10px; border-radius: var(--r-full);">
+                        <a href="loja.html" class="btn btn--secondary btn--sm"
+                            style="font-size: 0.78rem; padding: 4px 10px; border-radius: var(--r-full);">
                             <i class="fi fi-br-shop"></i> Trocar Mascote
                         </a>
                     </div>
@@ -181,127 +183,93 @@
                     </div>
                 </section>
 
-                <div class="info-grid">
-                    <section class="card">
-                        <div class="u-pages-aluno-perfil-008">
-                            <div class="info-item__icon u-pages-aluno-perfil-009">
-                                <i class="fi fi-br-user" aria-hidden="true"></i>
-                            </div>
-
-                            <h2 class="u-pages-aluno-perfil-010">
-                                Dados do estudante
-                            </h2>
+                <section class="card" aria-labelledby="journeyTitle">
+                    <div class="u-pages-aluno-perfil-008">
+                        <div class="info-item__icon u-pages-aluno-perfil-013">
+                            <i class="fi fi-br-book-open-cover" aria-hidden="true"></i>
                         </div>
 
-                        <div class="info-item">
-                            <div class="info-item__icon u-pages-aluno-perfil-011">
-                                <i class="fi fi-br-id-badge" aria-hidden="true"></i>
-                            </div>
+                        <h2 class="u-pages-aluno-perfil-010" id="journeyTitle">
+                            Sua jornada
+                        </h2>
+                    </div>
 
-                            <div class="info-item__body">
-                                <div class="info-item__label">
-                                    Identificador
-                                </div>
-
-                                <div class="info-item__value" id="studentId">
-                                    —
-                                </div>
-                            </div>
+                    <div class="info-item">
+                        <div class="info-item__icon u-pages-aluno-perfil-014">
+                            <i class="fi fi-br-check-circle" aria-hidden="true"></i>
                         </div>
 
-                        <div class="info-item">
-                            <div class="info-item__icon u-pages-aluno-perfil-012">
-                                <i class="fi fi-br-envelope" aria-hidden="true"></i>
-                            </div>
-
-                            <div class="info-item__body">
-                                <div class="info-item__label">
-                                    E-mail
-                                </div>
-
-                                <div class="info-item__value" id="studentEmailDetail">
-                                    —
-                                </div>
+                        <div class="info-item__body">
+                            <div class="info-item__label">Módulos concluídos</div>
+                            <div class="info-item__value" id="completedModulesSummary">
+                                Carregando...
                             </div>
                         </div>
+                    </div>
 
-                        <div class="info-item">
-                            <div class="info-item__icon u-pages-aluno-perfil-011">
-                                <i class="fi fi-br-graduation-cap" aria-hidden="true"></i>
-                            </div>
-
-                            <div class="info-item__body">
-                                <div class="info-item__label">
-                                    Ano escolar
-                                </div>
-
-                                <div class="info-item__value" id="studentSchoolYearDetail">
-                                    —
-                                </div>
-                            </div>
-                        </div>
-                    </section>
-
-                    <section class="card">
-                        <div class="u-pages-aluno-perfil-008">
-                            <div class="info-item__icon u-pages-aluno-perfil-013">
-                                <i class="fi fi-br-brain" aria-hidden="true"></i>
-                            </div>
-
-                            <h2 class="u-pages-aluno-perfil-010">
-                                Aprendizagem
-                            </h2>
+                    <div class="info-item">
+                        <div class="info-item__icon u-pages-aluno-perfil-014">
+                            <i class="fi fi-br-play" aria-hidden="true"></i>
                         </div>
 
-                        <div class="info-item">
-                            <div class="info-item__icon u-pages-aluno-perfil-014">
-                                <i class="fi fi-br-layers" aria-hidden="true"></i>
-                            </div>
-
-                            <div class="info-item__body">
-                                <div class="info-item__label">
-                                    Nível de suporte
-                                </div>
-
-                                <div class="info-item__value" id="studentLevel">
-                                    —
-                                </div>
+                        <div class="info-item__body">
+                            <div class="info-item__label">Seu próximo passo</div>
+                            <div class="info-item__value" id="nextModuleSummary">
+                                Carregando módulos...
                             </div>
                         </div>
+                    </div>
 
-                        <div class="info-item">
-                            <div class="info-item__icon u-pages-aluno-perfil-014">
-                                <i class="fi fi-br-book-open-cover" aria-hidden="true"></i>
-                            </div>
+                    <a class="ver-mais" href="atividades.html">
+                        Ver meus módulos
+                        <i class="fi fi-br-arrow-right" aria-hidden="true"></i>
+                    </a>
+                </section>
 
-                            <div class="info-item__body">
-                                <div class="info-item__label">
-                                    Modo de aprendizagem
-                                </div>
-
-                                <div class="info-item__value" id="studentLearningModeDetail">
-                                    —
-                                </div>
-                            </div>
+                <section class="card">
+                    <div class="u-pages-aluno-perfil-008">
+                        <div class="info-item__icon u-pages-aluno-perfil-013">
+                            <i class="fi fi-br-brain" aria-hidden="true"></i>
                         </div>
 
-                        <div class="info-item">
-                            <div class="info-item__icon u-pages-aluno-perfil-014">
-                                <i class="fi fi-br-star" aria-hidden="true"></i>
+                        <h2 class="u-pages-aluno-perfil-010">
+                            Aprendizagem
+                        </h2>
+                    </div>
+
+
+                    <div class="info-item">
+                        <div class="info-item__icon u-pages-aluno-perfil-014">
+                            <i class="fi fi-br-book-open-cover" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="info-item__body">
+                            <div class="info-item__label">
+                                Modo de aprendizagem
                             </div>
 
-                            <div class="info-item__body">
-                                <div class="info-item__label">
-                                    Experiência acumulada
-                                </div>
-
-                                <div class="info-item__value" id="studentXpDetail">
-                                    0 XP
-                                </div>
+                            <div class="info-item__value" id="studentLearningModeDetail">
+                                —
                             </div>
                         </div>
-                    </section>
-                </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-item__icon u-pages-aluno-perfil-014">
+                            <i class="fi fi-br-star" aria-hidden="true"></i>
+                        </div>
+
+                        <div class="info-item__body">
+                            <div class="info-item__label">
+                                Experiência acumulada
+                            </div>
+
+                            <div class="info-item__value" id="studentXpDetail">
+                                0 XP
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
                 <section class="card student-profile-notice">
                     <div class="u-pages-aluno-perfil-008">

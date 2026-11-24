@@ -18,7 +18,16 @@
         { id: 10, name: "Dino Astronauta", fileName: "dino_astronauta.png", isOriginal: false },
         { id: 11, name: "Dino Robô", fileName: "dino_robo.png", isOriginal: false },
         { id: 12, name: "Dino Rico", fileName: "dino_rico.png", isOriginal: false },
-        { id: 13, name: "Dino Rei", fileName: "dino_rei.png", isOriginal: false }
+        { id: 13, name: "Dino Rei", fileName: "dino_rei.png", isOriginal: false },
+        { id: 14, name: "Lexa", fileName: "lexa.png", isOriginal: false },
+        { id: 15, name: "Pietro", fileName: "pietro.png", isOriginal: false },
+        { id: 16, name: "Lexa Bailarina", fileName: "lexa_bailarina.png", isOriginal: false },
+        { id: 17, name: "Lexa Princesa", fileName: "lexa_princesa.png", isOriginal: false },
+        { id: 18, name: "Lexa Fada", fileName: "lexa_fada.png", isOriginal: false },
+        { id: 19, name: "Lexa Cientista", fileName: "lexa_cientista.png", isOriginal: false },
+        { id: 20, name: "Lexa Astronauta", fileName: "lexa_astronauta.png", isOriginal: false },
+        { id: 21, name: "Lexa Sereia", fileName: "lexa_sereia.png", isOriginal: false },
+        { id: 22, name: "Lexa Guardiã da Floresta", fileName: "lexa_guardia_floresta.png", isOriginal: false },
     ];
 
     function getEquippedDino() {
