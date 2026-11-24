@@ -23,7 +23,7 @@ html {
 body {
     font-family: Poppins,sans-serif;
     color: var(--ink);
-    background: #fff;
+    background: #fff url("../../assets/imagens/background.png") center / cover no-repeat fixed;
     line-height: 1.65;
     overflow-x: hidden
 }
