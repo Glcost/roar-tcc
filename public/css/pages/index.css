@@ -490,7 +490,7 @@ button {
     margin: auto;
     padding: 55px 0 25px;
     display: grid;
-    grid-template-columns: 2fr 1fr 1fr;
+    grid-template-columns: 2fr 1fr 1fr 1.15fr;
     gap: 45px;
     border-top: 1px solid var(--line)
 }
@@ -525,6 +525,55 @@ button {
     color: #8994a3;
     font-size: .67rem;
     text-align: center
+}
+
+/* Equipe no rodapé (links do LinkedIn) */
+.footer-team__list {
+    display: grid;
+    gap: 7px;
+    margin: 0;
+    padding: 0;
+    list-style: none
+}
+
+.footer-team__link,
+.footer-team__member {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: .74rem;
+    line-height: 1.4;
+    color: var(--muted)
+}
+
+.footer-team__link:hover {
+    color: var(--blue)
+}
+
+.footer-team__icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 16px;
+    height: 16px;
+    flex: 0 0 16px;
+    color: #0a66c2
+}
+
+.footer-team__link:hover .footer-team__icon {
+    color: var(--blue)
+}
+
+.footer-team__icon--empty {
+    color: transparent
+}
+
+.footer-team__member {
+    opacity: .8
+}
+
+.footer-team svg {
+    display: block
 }
 .reveal {
     opacity: 0;
