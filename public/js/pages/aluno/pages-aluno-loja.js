@@ -3,7 +3,7 @@
    Controlador da Loja de Dinos, Compra e Equipamento
    ============================================================ */
 
-import { avatarService } from "../../services/avatar-service.js";
+import { avatarService } from "../../services/avatar-service.js?v=2";
 import { showToast } from "../../components/toast.js";
 
 const elements = {
@@ -247,7 +247,7 @@ function getFilteredCatalog() {
         );
     }
 
-    const sortBy = elements.sort?.value || "price-asc";
+    const sortBy = elements.sort?.value || "rarity";
     const sorted = [...filtered];
     if (sortBy === "price-desc") {
         sorted.sort((a, b) => b.price - a.price || a.name.localeCompare(b.name, "pt-BR"));

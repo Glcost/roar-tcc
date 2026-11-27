@@ -8,7 +8,7 @@
     <meta name="description" content="Loja de avatares de dinossauro do sistema ROAR. Compre e equipe novos visuais usando seus pontos de XP.">
     <script src="../../public/js/roar-theme.js"></script>
     <link rel="icon" href="../../public/assets/imagens/favicon-v2.png?v=4" type="image/png" sizes="32x32">
-    <link rel="stylesheet" href="../../public/css/global.css?v=8">
+    <link rel="stylesheet" href="../../public/css/global.css?v=9">
     <link rel="stylesheet" href="https://cdn-uicons.flaticon.com/4.0.0/uicons-bold-rounded/css/uicons-bold-rounded.css">
     <link rel="stylesheet" href="../../public/css/pages/pages-aluno-loja.css?v=4">
 </head>
@@ -164,22 +164,22 @@
                     <div class="store-toolbar">
                         <div class="store-tabs" role="tablist" aria-label="Filtro de raridade dos dinos">
                             <button class="store-tab-btn active" data-filter="all" type="button" role="tab" aria-selected="true">
-                                <i class="fi fi-br-apps"></i> Todos <span class="badge-count" id="countAll">15</span>
+                                <i class="fi fi-br-apps"></i> Todos <span class="badge-count" id="countAll">22</span>
                             </button>
                             <button class="store-tab-btn" data-filter="comum" type="button" role="tab" aria-selected="false">
                                 <i class="fi fi-br-star"></i> Comuns <span class="badge-count" id="countComum">6</span>
                             </button>
                             <button class="store-tab-btn" data-filter="raro" type="button" role="tab" aria-selected="false">
-                                <i class="fi fi-br-diamond"></i> Raros <span class="badge-count" id="countRaro">3</span>
+                                <i class="fi fi-br-diamond"></i> Raros <span class="badge-count" id="countRaro">5</span>
                             </button>
                             <button class="store-tab-btn" data-filter="epico" type="button" role="tab" aria-selected="false">
-                                <i class="fi fi-br-flame"></i> Épicos <span class="badge-count" id="countEpico">2</span>
+                                <i class="fi fi-br-flame"></i> Épicos <span class="badge-count" id="countEpico">4</span>
                             </button>
                             <button class="store-tab-btn" data-filter="lendario" type="button" role="tab" aria-selected="false">
-                                <i class="fi fi-br-crown"></i> Lendários <span class="badge-count" id="countLendario">3</span>
+                                <i class="fi fi-br-crown"></i> Lendários <span class="badge-count" id="countLendario">4</span>
                             </button>
                             <button class="store-tab-btn" data-filter="mitico" type="button" role="tab" aria-selected="false">
-                                <i class="fi fi-br-sparkles"></i> Míticos <span class="badge-count" id="countMitico">1</span>
+                                <i class="fi fi-br-sparkles"></i> Míticos <span class="badge-count" id="countMitico">3</span>
                             </button>
                             <button class="store-tab-btn" data-filter="owned" type="button" role="tab" aria-selected="false">
                                 <i class="fi fi-br-backpack"></i> Minhas skins <span class="badge-count" id="countOwned">1</span>
@@ -197,10 +197,10 @@
                                 <label class="store-sort" for="storeSort">
                                     <span>Ordenar</span>
                                     <select id="storeSort">
+                                        <option value="rarity" selected>Raridade</option>
                                         <option value="price-asc">Menor preço</option>
                                         <option value="price-desc">Maior preço</option>
                                         <option value="name">Nome A–Z</option>
-                                        <option value="rarity">Raridade</option>
                                     </select>
                                 </label>
                             </div>
@@ -272,7 +272,7 @@
     <script src="../../public/js/roar-page-transition.js"></script>
     <script type="module" src="../../public/js/roar-sidebar.js?v=4"></script>
     <script src="../../public/js/roar-avatar.js?v=2"></script>
-    <script type="module" src="../../public/js/pages/aluno/pages-aluno-loja.js?v=4"></script>
+    <script type="module" src="../../public/js/pages/aluno/pages-aluno-loja.js?v=5"></script>
 </body>
 
 </html>

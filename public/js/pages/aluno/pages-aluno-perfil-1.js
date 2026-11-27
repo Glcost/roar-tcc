@@ -1,7 +1,7 @@
 import { showToast } from "../../components/toast.js";
 import { perfilAlunoService } from "../../services/perfil-aluno-service.js";
 import { sessionService } from "../../services/session-service.js";
-import { avatarService } from "../../services/avatar-service.js";
+import { avatarService } from "../../services/avatar-service.js?v=2";
 import { moduloService } from "../../services/modulo-service.js";
 
 const elements = {
