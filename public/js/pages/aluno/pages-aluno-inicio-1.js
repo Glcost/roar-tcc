@@ -1,5 +1,5 @@
 import { studentHomeService } from "../../services/student-home-service.js";
-import { avatarService } from "../../services/avatar-service.js";
+import { avatarService } from "../../services/avatar-service.js?v=2";
 import { showToast } from "../../components/toast.js"
 
 

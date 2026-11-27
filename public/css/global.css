@@ -2784,9 +2784,23 @@ body {
     background: transparent;
 }
 
+/* A área do professor usa a arte verde (telacadastro) como fundo. */
+body.teacher-area {
+    background-image: url("../assets/imagens/telacadastro.png");
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+}
+
 html[data-theme="dark"],
 [data-theme="dark"] body,
 [data-theme="dark"] .app-shell {
+    background-image: none;
+    background-color: var(--c-secondary);
+}
+
+[data-theme="dark"] body.teacher-area {
     background-image: none;
     background-color: var(--c-secondary);
 }
