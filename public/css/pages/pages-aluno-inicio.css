@@ -639,3 +639,47 @@
         animation: none;
     }
 }
+
+/* Mascote acompanhante das etapas do guia */
+.tour__card {
+    width: min(100%, 700px);
+}
+
+.tour__content {
+    display: grid;
+    grid-template-columns: 136px minmax(0, 1fr);
+    align-items: center;
+    gap: 20px;
+}
+
+.tour__mascot {
+    display: block;
+    width: 136px;
+    max-height: 184px;
+    object-fit: contain;
+    object-position: center bottom;
+    align-self: end;
+    filter: drop-shadow(0 5px 8px rgba(30, 58, 95, 0.12));
+}
+
+.tour__copy {
+    min-width: 0;
+}
+
+@media (max-width: 600px) {
+    .tour__card {
+        width: min(100%, 560px);
+    }
+
+    .tour__content {
+        grid-template-columns: 88px minmax(0, 1fr);
+        align-items: start;
+        gap: 12px;
+    }
+
+    .tour__mascot {
+        width: 96px;
+        max-height: 132px;
+        margin-left: -8px;
+    }
+}
